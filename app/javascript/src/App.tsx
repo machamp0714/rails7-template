@@ -1,9 +1,10 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import UI from './UI';
 
 const mountNode = document.getElementById('main') as HTMLElement;
+const root = createRoot(mountNode);
 
 document.addEventListener('DOMContentLoaded', () => {
-  ReactDOM.render(<UI />, mountNode);
+  root.render(<UI />);
 });
