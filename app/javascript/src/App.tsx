@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Home from './components/Home';
+import UI from './UI';
 
 const mountNode = document.getElementById('main') as HTMLElement;
 
 document.addEventListener('DOMContentLoaded', () => {
-  ReactDOM.render(<Home />, mountNode);
+  ReactDOM.render(<UI />, mountNode);
 });
