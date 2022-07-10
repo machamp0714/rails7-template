@@ -1,10 +1,9 @@
 import React from 'react';
-import { createRoot } from 'react-dom/client';
+import ReactDOM from 'react-dom';
 import Home from './components/Home';
 
-const container = document.getElementById('root') as HTMLElement;
-const root = createRoot(container);
+const mountNode = document.getElementById('main') as HTMLElement;
 
 document.addEventListener('DOMContentLoaded', () => {
-  root.render(<Home />);
+  ReactDOM.render(<Home />, mountNode);
 });
