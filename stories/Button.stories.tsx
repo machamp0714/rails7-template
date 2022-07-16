@@ -13,7 +13,14 @@ export default {
         { name: 'blue', value: '#00f' },
       ]
     }
-  }
+  },
+  decorators: [
+    (Story) => (
+      <div style={ { margin: '3rem' } }>
+        <Story />
+      </div>
+    )
+  ]
 } as ComponentMeta<typeof Button>
 
 const Template: ComponentStory<typeof Button> = (args) => <Button {...args} />;
