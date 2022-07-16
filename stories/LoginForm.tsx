@@ -9,10 +9,9 @@ export const LoginForm: React.FC = () => {
   }
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const name = event.target.name;
     const newValues = {
       ...values,
-      [name]: event.target.value
+      [event.target.name]: event.target.value
     }
     setValues(newValues);
   }

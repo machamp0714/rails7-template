@@ -4,7 +4,16 @@ import { Button } from './Button';
 
 export default {
   title: 'Example/Button',
-  component: Button
+  component: Button,
+  parameters: {
+    backgrounds: {
+      values: [
+        { name: 'red', value: '#f00' },
+        { name: 'green', value: '#0f0' },
+        { name: 'blue', value: '#00f' },
+      ]
+    }
+  }
 } as ComponentMeta<typeof Button>
 
 const Template: ComponentStory<typeof Button> = (args) => <Button {...args} />;
