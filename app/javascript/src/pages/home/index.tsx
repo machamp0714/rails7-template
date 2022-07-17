@@ -1,8 +1,10 @@
 import React from 'react';
 
+import { LoginForm } from '../../components/LoginForm';
+
 const Home: React.FC = () => {
   return (
-    <h1 className='text-3xl font-bold underline'>React Router test</h1>
+    <LoginForm />
   );
 }
 
