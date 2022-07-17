@@ -1,10 +1,15 @@
 import React from 'react';
-import { createRoot } from 'react-dom/client';
-import UI from './UI';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from './components/Home';
 
-const mountNode = document.getElementById('main') as HTMLElement;
-const root = createRoot(mountNode);
+const UI = () => {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Home />} />
+      </Routes>
+    </BrowserRouter>
+  )
+}
 
-document.addEventListener('DOMContentLoaded', () => {
-  root.render(<UI />);
-});
+export default UI;

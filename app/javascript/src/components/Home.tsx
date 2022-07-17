@@ -2,7 +2,7 @@ import React from 'react';
 
 const Home: React.FC = () => {
   return (
-    <div>React Router test</div>
+    <div className='dark:text-gray-300'>React Router test</div>
   );
 }
 
