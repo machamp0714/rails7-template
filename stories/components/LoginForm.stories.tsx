@@ -3,7 +3,7 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { within, userEvent } from '@storybook/testing-library';
 // import { expect } from '@storybook/jest';
 
-import { LoginForm } from './LoginForm';
+import { LoginForm } from '../../app/javascript/src/components/LoginForm';
 
 export default {
   title: 'Components/LoginForm',
