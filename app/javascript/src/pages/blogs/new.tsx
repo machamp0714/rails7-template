@@ -36,7 +36,7 @@ export const BlogsNew: React.FC = () => {
           />
         </div>
         <div className="flex items-center justify-between">
-          <Button type="submit" label="Post" />
+          <Button type="submit">Post</Button>
         </div>
       </form>
     </div>
