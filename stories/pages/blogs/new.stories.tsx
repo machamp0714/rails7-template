@@ -8,6 +8,6 @@ export default {
   component: BlogsNew,
 } as ComponentMeta<typeof BlogsNew>;
 
-export const Template: ComponentStory<typeof BlogsNew> = (_args) => {
-  return <BlogsNew />;
+export const Default: ComponentStory<typeof BlogsNew> = (props) => {
+  return <BlogsNew {...props} />;
 };
