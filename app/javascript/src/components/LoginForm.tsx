@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import { Button } from "./Button";
+import { Button } from './Button';
 
 export const LoginForm: React.FC = () => {
-  const [values, setValues] = useState({ email: "", password: "" });
+  const [values, setValues] = useState({ email: '', password: '' });
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log("ok");
+    console.log('ok');
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -52,7 +52,7 @@ export const LoginForm: React.FC = () => {
           onChange={handleChange}
         />
       </div>
-      <Button type="submit" label="Login" />
+      <Button type="submit">Login</Button>
     </form>
   );
 };
