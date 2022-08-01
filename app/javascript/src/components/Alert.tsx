@@ -33,10 +33,12 @@ const IconNode: React.FC<IconNodeProps> = ({ type }: IconNodeProps) => {
 
 interface CloseButtonProps {
   type: AlertProps['type'];
+  handleClose: () => void;
 }
 
 const CloseButton: React.FC<CloseButtonProps> = ({
   type,
+  handleClose,
 }: CloseButtonProps) => {
   return (
     <button
@@ -50,6 +52,7 @@ const CloseButton: React.FC<CloseButtonProps> = ({
             type === 'success',
         }
       )}
+      onClick={handleClose}
       data-dismiss-target="#alert-2"
       aria-label="Close"
     >
@@ -71,11 +74,14 @@ const CloseButton: React.FC<CloseButtonProps> = ({
 };
 
 export const Alert: React.FC<AlertProps> = ({ message, type }: AlertProps) => {
+  const [closed, setClosed] = React.useState(false);
+
   return (
     <div
       className={clsx('flex p-4 mb-4 rounded-lg', {
         'bg-red-100 dark:bg-red-200': type === 'danger',
         'bg-green-100 dark:bg-green-200': type === 'success',
+        hidden: closed,
       })}
       role="alert"
     >
@@ -88,7 +94,7 @@ export const Alert: React.FC<AlertProps> = ({ message, type }: AlertProps) => {
       >
         {message}
       </div>
-      <CloseButton type={type} />
+      <CloseButton type={type} handleClose={() => setClosed(true)} />
     </div>
   );
 };
