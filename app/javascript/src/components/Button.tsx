@@ -1,19 +1,25 @@
 import React from 'react';
+import { clsx } from 'clsx';
 
-interface ButtonProps {
-  type: 'button' | 'submit';
-  label: string;
+const variants = {
+  primary: 'bg-blue-500 hover:bg-blue-700 text-white',
+  secondary: 'bg-gray-300 hover:bg-gray-400 text-gray-800',
+};
+
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: keyof typeof variants;
+  children: React.ReactNode;
 }
 
 export const Button: React.FC<ButtonProps> = (props: ButtonProps) => {
-  const { type, label } = props;
+  const { variant = 'primary', type = 'button', children } = props;
 
   return (
     <button
       type={type}
-      className='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
+      className={clsx(variants[variant], 'font-bold py-2 px-4 rounded')}
     >
-      {label}
+      {children}
     </button>
-  )
-}
+  );
+};

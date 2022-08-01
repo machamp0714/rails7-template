@@ -5,12 +5,23 @@ import { Button } from '../../app/javascript/src/components/Button';
 
 export default {
   title: 'Components/Button',
-  component: Button
-} as ComponentMeta<typeof Button>
+  component: Button,
+} as ComponentMeta<typeof Button>;
 
 const Template: ComponentStory<typeof Button> = (args) => {
-  return <Button type={args.type} label={args.label} />
-}
+  return (
+    <Button type={args.type} variant={args.variant}>
+      Login
+    </Button>
+  );
+};
 
 export const PrimaryButton = Template.bind({});
-PrimaryButton.args = { type: 'submit', label: 'Login' }
+PrimaryButton.args = { type: 'button', variant: 'primary', children: 'Login' };
+
+export const SecondaryButton = Template.bind({});
+SecondaryButton.args = {
+  type: 'button',
+  variant: 'secondary',
+  children: 'Login',
+};
