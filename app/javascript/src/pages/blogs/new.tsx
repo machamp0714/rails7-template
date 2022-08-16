@@ -1,5 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { axios } from '../../lib/axios';
 
 import { Button } from '../../components/Button';
 
@@ -15,7 +16,11 @@ export const BlogsNew: React.FC = () => {
     formState: { errors },
   } = useForm<FormData>();
 
-  const onSubmit = (data: FormData) => console.log(data);
+  const onSubmit = (data: FormData) => {
+    axios.post('/blogs', data).then((data) => {
+      console.log(data);
+    });
+  };
 
   return (
     <div className="w-full max-w-xs">

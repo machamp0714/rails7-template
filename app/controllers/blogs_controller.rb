@@ -1,4 +1,6 @@
 class BlogsController < ApplicationController
+  protect_from_forgery with: :null_session
+
   def new; end
 
   def create
@@ -13,6 +15,6 @@ class BlogsController < ApplicationController
   private
 
   def blog_params
-    params.require(:blog).permit(:title, :body)
+    params.require(:blog).permit(:title, :description)
   end
 end
