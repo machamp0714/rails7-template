@@ -1,15 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { axios } from '../../lib/axios';
+import { useMutation } from '@tanstack/react-query';
 
 import { Button } from '../../components/Button';
+import { Alert } from '../../components/Alert';
 
 type FormData = {
   title: string;
   description: string;
 };
 
+type Blog = {
+  id?: number;
+  title: string;
+  description?: string;
+  created_at: string;
+  updated_at: string;
+};
+
 export const BlogsNew: React.FC = () => {
+  const [visible, setVisible] = useState(false);
+
+  const addBlog = (data: FormData): Promise<Blog> => {
+    return axios.post('/blogs', data);
+  };
+
+  const mutation = useMutation(addBlog, {
+    onSuccess: (data) => {
+      console.log(data);
+      setVisible(true);
+    },
+  });
+
   const {
     register,
     handleSubmit,
@@ -17,13 +40,12 @@ export const BlogsNew: React.FC = () => {
   } = useForm<FormData>();
 
   const onSubmit = (data: FormData) => {
-    axios.post('/blogs', data).then((data) => {
-      console.log(data);
-    });
+    mutation.mutate(data);
   };
 
   return (
     <div className="w-full max-w-xs">
+      {visible && <Alert type="success" message="Blog Created!" />}
       <h1>ブログ作成</h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
