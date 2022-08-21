@@ -1,5 +1,9 @@
 import '../app/assets/stylesheets/application.tailwind.css';
 
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+const client = new QueryClient();
+
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
   controls: {
@@ -9,3 +13,11 @@ export const parameters = {
     },
   },
 }
+
+export const decorators = [
+  (Story) => (
+    <QueryClientProvider client={client}>
+      <Story />
+    </QueryClientProvider>
+  ),
+]

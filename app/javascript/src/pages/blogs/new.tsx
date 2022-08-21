@@ -27,8 +27,7 @@ export const BlogsNew: React.FC = () => {
   };
 
   const mutation = useMutation(addBlog, {
-    onSuccess: (data) => {
-      console.log(data);
+    onSuccess: () => {
       setVisible(true);
     },
   });
