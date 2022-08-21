@@ -19,7 +19,7 @@
     "failure:js": "rm ./app/assets/builds/application.js && rm ./app/assets/builds/application.js.map",
     "dev:js": "tsc-watch --noClear -p tsconfig.json --onSuccess \"yarn build:js\" --onFailure \"yarn failure:js\"",
     "browser:sync": "browser-sync start --proxy \"localhost:3000\" --files \"app/assets/builds/*.js\" --port 3001",
-    "storybook": "start-storybook -p 6006",
+    "storybook": "start-storybook -p 6006 -s app/javascript/src/public",
     "build-storybook": "build-storybook",
     "chromatic": "chromatic"
   },
@@ -44,6 +44,8 @@
     "babel-loader": "^8.2.5",
     "browser-sync": "^2.27.10",
     "chromatic": "^6.7.0",
+    "msw": "^0.44.2",
+    "msw-storybook-addon": "^1.6.3",
     "postcss": "^8.4.14",
     "tailwindcss": "^3.1.6",
     "tsc-watch": "^5.0.3",
@@ -52,5 +54,8 @@
   },
   "resolutions": {
     "webpack": "^5"
+  },
+  "msw": {
+    "workerDirectory": ".storybook/public"
   }
 }
