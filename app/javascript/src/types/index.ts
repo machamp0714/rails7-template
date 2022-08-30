@@ -1,4 +1,3 @@
-export interface ServerError {
-  message: string;
-  errors: Array<string>;
+export interface HTTPError {
+  [key: string]: Array<string>
 }

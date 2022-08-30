@@ -5,6 +5,8 @@ import { useMutation } from '@tanstack/react-query';
 
 import { Button } from '../../components/Button';
 import { Alert } from '../../components/Alert';
+import Axios, { AxiosError } from 'axios';
+import { HTTPError } from '../../types';
 
 type FormData = {
   title: string;
@@ -19,6 +21,24 @@ type Blog = {
   updated_at: string;
 };
 
+type ErrorMessageProps = {
+  mutationError: AxiosError<HTTPError>;
+};
+
+const ErrorMessage = ({ mutationError }: ErrorMessageProps) => {
+  if (!mutationError.response) {
+    throw mutationError;
+  }
+
+  return (
+    <ul>
+      {mutationError.response.data.title.map((message: string) => {
+        return <li key={message}>{message}</li>;
+      })}
+    </ul>
+  );
+};
+
 export const BlogsNew: React.FC = () => {
   const [visible, setVisible] = useState(false);
 
@@ -26,9 +46,12 @@ export const BlogsNew: React.FC = () => {
     return axios.post('/blogs', data);
   };
 
-  const mutation = useMutation(addBlog, {
+  const mutation = useMutation<Blog, AxiosError<HTTPError>, FormData>(addBlog, {
     onSuccess: () => {
       setVisible(true);
+    },
+    onError: (error, variables, context) => {
+      console.log(error, variables, context);
     },
   });
 
@@ -45,6 +68,7 @@ export const BlogsNew: React.FC = () => {
   return (
     <div className="w-full max-w-xs">
       {visible && <Alert type="success" message="Blog Created!" />}
+      {mutation.isError && <ErrorMessage mutationError={mutation.error} />}
       <h1>ブログ作成</h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
