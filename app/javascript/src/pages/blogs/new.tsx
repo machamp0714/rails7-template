@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { axios } from '../../lib/axios';
 import { useMutation } from '@tanstack/react-query';
 
 import { Button } from '../../components/Button';
 import { Alert } from '../../components/Alert';
-import Axios, { AxiosError } from 'axios';
+import { AxiosError } from 'axios';
 import { HTTPError } from '../../types';
 
 type FormData = {
@@ -40,20 +40,11 @@ const ErrorMessage = ({ mutationError }: ErrorMessageProps) => {
 };
 
 export const BlogsNew: React.FC = () => {
-  const [visible, setVisible] = useState(false);
-
   const addBlog = (data: FormData): Promise<Blog> => {
     return axios.post('/blogs', data);
   };
 
-  const mutation = useMutation<Blog, AxiosError<HTTPError>, FormData>(addBlog, {
-    onSuccess: () => {
-      setVisible(true);
-    },
-    onError: (error, variables, context) => {
-      console.log(error, variables, context);
-    },
-  });
+  const mutation = useMutation<Blog, AxiosError<HTTPError>, FormData>(addBlog);
 
   const {
     register,
@@ -67,7 +58,7 @@ export const BlogsNew: React.FC = () => {
 
   return (
     <div className="w-full max-w-xs">
-      {visible && <Alert type="success" message="Blog Created!" />}
+      {mutation.isSuccess && <Alert type="success" message="Blog Created!" />}
       {mutation.isError && <ErrorMessage mutationError={mutation.error} />}
       <h1>ブログ作成</h1>
       <form
