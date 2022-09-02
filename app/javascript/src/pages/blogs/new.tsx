@@ -5,8 +5,8 @@ import { useMutation } from '@tanstack/react-query';
 
 import { Button } from '../../components/Button';
 import { Alert } from '../../components/Alert';
-import { AxiosError } from 'axios';
 import { HTTPError } from '../../types';
+import { AxiosError } from 'axios';
 
 type FormData = {
   title: string;
@@ -22,17 +22,21 @@ type Blog = {
 };
 
 type ErrorMessageProps = {
-  mutationError: AxiosError<HTTPError>;
+  error: HTTPError;
 };
 
-const ErrorMessage = ({ mutationError }: ErrorMessageProps) => {
-  if (!mutationError.response) {
-    throw mutationError;
+const ErrorMessage = ({ error }: ErrorMessageProps) => {
+  if (!(error instanceof AxiosError)) {
+    throw error;
+  }
+
+  if (!error.response) {
+    throw error;
   }
 
   return (
     <ul>
-      {mutationError.response.data.title.map((message: string) => {
+      {error.response.data.errors.map((message: string) => {
         return <li key={message}>{message}</li>;
       })}
     </ul>
@@ -44,7 +48,7 @@ export const BlogsNew: React.FC = () => {
     return axios.post('/blogs', data);
   };
 
-  const mutation = useMutation<Blog, AxiosError<HTTPError>, FormData>(addBlog);
+  const mutation = useMutation<Blog, HTTPError, FormData>(addBlog);
 
   const {
     register,
@@ -59,7 +63,7 @@ export const BlogsNew: React.FC = () => {
   return (
     <div className="w-full max-w-xs">
       {mutation.isSuccess && <Alert type="success" message="Blog Created!" />}
-      {mutation.isError && <ErrorMessage mutationError={mutation.error} />}
+      {mutation.isError && <ErrorMessage error={mutation.error} />}
       <h1>ブログ作成</h1>
       <form
         onSubmit={handleSubmit(onSubmit)}

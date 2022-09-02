@@ -49,3 +49,26 @@ export const FilledSuccess = {
     EmptyError.play();
   },
 };
+
+export const FilledError = {
+  ...Empty,
+  parameters: {
+    msw: {
+      handlers: [
+        rest.post('/blogs', (_req, res, ctx) => {
+          return res(
+            ctx.status(422),
+            ctx.json({
+              message: 'バリデーションに失敗しました',
+              errors: ['title has already been taken'],
+            })
+          );
+        }),
+      ],
+    },
+  },
+  play: () => {
+    Filled.play();
+    EmptyError.play();
+  },
+};
