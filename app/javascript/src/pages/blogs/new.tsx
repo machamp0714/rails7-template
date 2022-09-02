@@ -5,8 +5,9 @@ import { useMutation } from '@tanstack/react-query';
 
 import { Button } from '../../components/Button';
 import { Alert } from '../../components/Alert';
+import { ErrorMessage } from '../../components/ErrorMessage';
+
 import { HTTPError } from '../../types';
-import { AxiosError } from 'axios';
 
 type FormData = {
   title: string;
@@ -19,28 +20,6 @@ type Blog = {
   description?: string;
   created_at: string;
   updated_at: string;
-};
-
-type ErrorMessageProps = {
-  error: HTTPError;
-};
-
-const ErrorMessage = ({ error }: ErrorMessageProps) => {
-  if (!(error instanceof AxiosError)) {
-    throw error;
-  }
-
-  if (!error.response) {
-    throw error;
-  }
-
-  return (
-    <ul>
-      {error.response.data.errors.map((message: string) => {
-        return <li key={message}>{message}</li>;
-      })}
-    </ul>
-  );
 };
 
 export const BlogsNew: React.FC = () => {
