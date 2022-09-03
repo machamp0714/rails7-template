@@ -1,41 +1,21 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { axios } from '../../lib/axios';
-import { useMutation } from '@tanstack/react-query';
 
+import { useCreateBlog, BlogCreateParams } from '../../api/blogs';
 import { Button } from '../../components/Button';
 import { Alert } from '../../components/Alert';
 import { ErrorMessage } from '../../components/ErrorMessage';
 
-import { HTTPError } from '../../types';
-
-type FormData = {
-  title: string;
-  description: string;
-};
-
-type Blog = {
-  id?: number;
-  title: string;
-  description?: string;
-  created_at: string;
-  updated_at: string;
-};
-
 export const BlogsNew: React.FC = () => {
-  const addBlog = (data: FormData): Promise<Blog> => {
-    return axios.post('/blogs', data);
-  };
-
-  const mutation = useMutation<Blog, HTTPError, FormData>(addBlog);
+  const mutation = useCreateBlog();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>();
+  } = useForm<BlogCreateParams>();
 
-  const onSubmit = (data: FormData) => {
+  const onSubmit = (data: BlogCreateParams) => {
     mutation.mutate(data);
   };
 
