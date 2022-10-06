@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useCreateBlog, BlogCreateParams } from '../../api/blogs';
+import { useCreateBlog, useGetBlogs, BlogCreateParams } from '../../api/blogs';
 import { Form } from '../../components/Form';
 import { Button } from '../../components/Button';
 import { Alert } from '../../components/Alert';
@@ -8,6 +8,7 @@ import { ErrorMessage } from '../../components/ErrorMessage';
 
 export const BlogsNew: React.FC = () => {
   const mutation = useCreateBlog();
+  const { data, isSuccess } = useGetBlogs();
 
   const onSubmit = (data: BlogCreateParams) => {
     mutation.mutate(data);
@@ -58,6 +59,13 @@ export const BlogsNew: React.FC = () => {
           </>
         )}
       </Form>
+      {isSuccess && (
+        <ul className="list-disc">
+          {data.map((blog) => {
+            return <li key={blog.id}>{blog.title}</li>;
+          })}
+        </ul>
+      )}
     </div>
   );
 };
