@@ -4,11 +4,29 @@ import { rest } from 'msw';
 
 import { BlogsNew } from '../../../app/javascript/src/pages/blogs/new';
 
+const blogs = [
+  {
+    id: 1,
+    title: 'title',
+    description: 'description',
+    created_at: '2021-01-01T00:00:00.000Z',
+    updated_at: '2021-01-01T00:00:00.000Z',
+  },
+  {
+    id: 2,
+    title: 'title2',
+    description: 'description2',
+    created_at: '2021-01-01T00:00:00.000Z',
+    updated_at: '2021-01-01T00:00:00.000Z',
+  },
+];
+
 export default {
   component: BlogsNew,
 } as ComponentMeta<typeof BlogsNew>;
 
 export const Empty = {
+  args: { blogs: blogs },
   parameters: {
     msw: {
       handlers: [
