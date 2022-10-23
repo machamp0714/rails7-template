@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import Home from './pages/home';
-import { BlogsNew } from './pages/blogs/new';
+import { BlogsNewContainer } from './containers/BlogsNewContainer';
 
 const App = () => {
   const client = new QueryClient();
@@ -13,7 +13,7 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/blogs/new" element={<BlogsNew />} />
+          <Route path="/blogs/new" element={<BlogsNewContainer />} />
         </Routes>
       </BrowserRouter>
     </QueryClientProvider>
