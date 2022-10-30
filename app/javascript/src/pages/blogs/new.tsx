@@ -53,7 +53,7 @@ export const BlogsNew: React.FC<Props> = ({ blogs }: Props) => {
                 id="description"
                 type="text"
                 placeholder="description"
-                {...register('description', { required: true })}
+                {...register('description')}
               />
             </div>
             <div className="flex items-center justify-between">
