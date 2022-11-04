@@ -3,6 +3,7 @@ import { useMutation } from '@tanstack/react-query';
 
 import { Blog } from '../types';
 import { HTTPError } from '../../../types';
+import { queryClient } from '../../../lib/react-query';
 
 export interface BlogCreateParams {
   title: string;
@@ -14,5 +15,9 @@ export const createBlog = (data: BlogCreateParams): Promise<Blog> => {
 }
 
 export const useCreateBlog = () => {
-  return useMutation<Blog, HTTPError, BlogCreateParams>(createBlog);
+  return useMutation<Blog, HTTPError, BlogCreateParams>(createBlog, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(['blogs']);
+    }
+  });
 }
