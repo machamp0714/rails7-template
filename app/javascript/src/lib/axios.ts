@@ -1,7 +1,17 @@
-import Axios from 'axios';
+import Axios, { AxiosRequestConfig } from 'axios';
 
-export const axios = Axios.create({});
+const csrfRequestInterceptor = (config: AxiosRequestConfig) => {
+  const csrfToken = document
+    .querySelector('meta[name="csrf-token"]')
+    ?.getAttribute('content');
 
-axios.interceptors.response.use(
-  (response) => response.data
-);
+  if (csrfToken) {
+    config.headers!['X-CSRF-Token'] = csrfToken;
+  }
+  return config;
+};
+
+export const axios = Axios.create();
+
+axios.interceptors.request.use(csrfRequestInterceptor);
+axios.interceptors.response.use((response) => response.data);
