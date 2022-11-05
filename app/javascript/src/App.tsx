@@ -8,14 +8,16 @@ import { BlogsNewContainer } from './containers/BlogsNewContainer';
 
 const App = () => {
   return (
-    <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/blogs/new" element={<BlogsNewContainer />} />
-        </Routes>
-      </BrowserRouter>
-    </QueryClientProvider>
+    <React.StrictMode>
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/blogs/new" element={<BlogsNewContainer />} />
+          </Routes>
+        </BrowserRouter>
+      </QueryClientProvider>
+    </React.StrictMode>
   );
 };
 
