@@ -7,5 +7,9 @@ const mountNode = document.getElementById('main') as HTMLElement;
 const root = createRoot(mountNode);
 
 document.addEventListener('DOMContentLoaded', () => {
-  root.render(<App />);
+  root.render(
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  );
 });
