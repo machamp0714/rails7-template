@@ -5,8 +5,8 @@ const csrfRequestInterceptor = (config: AxiosRequestConfig) => {
     .querySelector('meta[name="csrf-token"]')
     ?.getAttribute('content');
 
-  if (csrfToken) {
-    config.headers!['X-CSRF-Token'] = csrfToken;
+  if (config.headers && csrfToken) {
+    config.headers['X-CSRF-Token'] = csrfToken;
   }
   return config;
 };
