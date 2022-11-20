@@ -17,7 +17,7 @@ export const createBlog = (data: BlogCreateParams): Promise<Blog> => {
 export const useCreateBlog = () => {
   return useMutation<Blog, HTTPError, BlogCreateParams>(createBlog, {
     onSuccess: () => {
-      queryClient.invalidateQueries(['blogs']);
+      void queryClient.invalidateQueries(['blogs']);
     }
   });
 }
