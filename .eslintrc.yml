@@ -13,8 +13,17 @@ extends:
   - plugin:@typescript-eslint/recommended-requiring-type-checking
   - plugin:react/recommended
   - plugin:react-hooks/recommended
-  - plugin:jest/recommended
   - prettier
+overrides:
+  - files: '**.spec.{ts,tsx}'
+    extends:
+      - plugin:jest/recommended
+      - plugin:jest/style
+    rules:
+      'jest/consistent-test-it':
+        - error
+        - fn: it
+      'jest/require-top-level-describe': error
 rules:
   '@typescript-eslint/no-misused-promises':
     - error

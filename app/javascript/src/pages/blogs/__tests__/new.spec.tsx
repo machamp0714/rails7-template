@@ -22,9 +22,9 @@ const server = setupServer(
   })
 );
 
-beforeAll(() => server.listen());
-
 describe('BlogsNew', () => {
+  beforeAll(() => server.listen());
+
   describe('タイトルが空白の時', () => {
     it('バリデーションメッセージが表示される', async () => {
       const { user } = setup(<BlogsNew blogs={[]} />);
@@ -46,6 +46,6 @@ describe('BlogsNew', () => {
       expect(await screen.findByText('Blog Created!')).toBeInTheDocument();
     });
   });
-});
 
-afterAll(() => server.close());
+  afterAll(() => server.close());
+});
