@@ -14,4 +14,4 @@ const csrfRequestInterceptor = (config: AxiosRequestConfig) => {
 export const axios = Axios.create();
 
 axios.interceptors.request.use(csrfRequestInterceptor);
-axios.interceptors.response.use((response) => response.data);
+axios.interceptors.response.use((response) => response.data as unknown);
