@@ -31,7 +31,7 @@ describe('BlogsNew', () => {
 
       user.click(screen.getByRole('button', { name: 'Post' }));
 
-      expect(await screen.findByText('Title is required')).toBeInTheDocument();
+      expect(await screen.findByText('タイトルは必須です')).toBeInTheDocument();
     });
   });
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import * as z from 'zod';
 
 import { useCreateBlog, BlogCreateParams, Blog } from '../../api/blogs';
 import { Form } from '../../components/Form';
@@ -11,6 +12,11 @@ interface Props {
 }
 
 export const BlogsNew: React.FC<Props> = ({ blogs }: Props) => {
+  const schema = z.object({
+    title: z.string().min(1, { message: 'タイトルは必須です' }),
+    description: z.string(),
+  });
+
   const mutation = useCreateBlog();
 
   const onSubmit = (data: BlogCreateParams) => {
@@ -22,7 +28,7 @@ export const BlogsNew: React.FC<Props> = ({ blogs }: Props) => {
       {mutation.isSuccess && <Alert type="success" message="Blog Created!" />}
       {mutation.isError && <ErrorMessage error={mutation.error} />}
       <h1>ブログ作成</h1>
-      <Form<BlogCreateParams> onSubmit={onSubmit}>
+      <Form<BlogCreateParams> onSubmit={onSubmit} schema={schema}>
         {({ register, formState }) => (
           <>
             <div className="mb-4">
@@ -39,7 +45,9 @@ export const BlogsNew: React.FC<Props> = ({ blogs }: Props) => {
                 placeholder="title"
                 {...register('title', { required: true })}
               />
-              {formState.errors['title'] && <span>Title is required</span>}
+              {formState.errors.title?.message && (
+                <span>{formState.errors.title?.message}</span>
+              )}
             </div>
             <div className="mb-4">
               <label
