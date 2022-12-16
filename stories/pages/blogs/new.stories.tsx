@@ -1,6 +1,7 @@
 import { ComponentMeta } from '@storybook/react';
-import { userEvent, screen } from '@storybook/testing-library';
+import { userEvent, screen, within } from '@storybook/testing-library';
 import { rest } from 'msw';
+import { expect } from '@storybook/jest';
 
 import { BlogsNew } from '../../../app/javascript/src/pages/blogs/new';
 
@@ -62,9 +63,13 @@ export const Filled = {
 
 export const FilledSuccess = {
   ...Empty,
-  play: () => {
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
     Filled.play();
     EmptyError.play();
+
+    expect(await canvas.findByText('Blog Created!')).toBeInTheDocument();
   },
 };
 
@@ -85,8 +90,14 @@ export const FilledError = {
       ],
     },
   },
-  play: () => {
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+
     Filled.play();
     EmptyError.play();
+
+    expect(
+      await canvas.findByText('title has already been taken')
+    ).toBeInTheDocument();
   },
 };
