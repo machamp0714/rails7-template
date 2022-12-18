@@ -33,3 +33,6 @@ rules:
 settings:
   react:
     version: detect
+
+ignorePatterns:
+  - '*.js'
