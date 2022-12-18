@@ -1,4 +1,4 @@
-import { ComponentMeta } from '@storybook/react';
+import { ComponentMeta, ComponentStoryObj } from '@storybook/react';
 import { userEvent, screen, within } from '@storybook/testing-library';
 import { rest } from 'msw';
 import { expect } from '@storybook/jest';
@@ -22,11 +22,13 @@ const blogs = [
   },
 ];
 
+type Story = ComponentStoryObj<typeof BlogsNew>;
+
 export default {
   component: BlogsNew,
 } as ComponentMeta<typeof BlogsNew>;
 
-export const Empty = {
+export const Empty: Story = {
   args: { blogs: blogs },
   parameters: {
     msw: {
@@ -61,15 +63,11 @@ export const Filled = {
   },
 };
 
-export const FilledSuccess = {
+export const FilledSuccess: Story = {
   ...Empty,
-  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
-    const canvas = within(canvasElement);
-
+  play: () => {
     Filled.play();
     EmptyError.play();
-
-    expect(await canvas.findByText('Blog Created!')).toBeInTheDocument();
   },
 };
 
