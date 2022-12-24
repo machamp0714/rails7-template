@@ -2,10 +2,10 @@
 
 module.exports = {
   roots: ["<rootDir>/app/javascript/src"],
-  preset: 'ts-jest',
-  testMatch: [
-    "**/__tests__/**/*.+(ts|tsx|js)",
-    "**/?(*.)+(spec|test).+(ts|tsx|js)"
-  ],
+  preset: 'ts-jest/presets/js-with-ts-esm',
   testEnvironment: 'jsdom',
+  transform: {
+    ".+\\.(css|sass|scss|png|jpg|ttf|woff|woff2)$": "jest-transform-stub",
+  },
+  setupFiles: ["<rootDir>/app/javascript/src/test/setup.jest.js"],
 };

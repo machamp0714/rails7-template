@@ -1,6 +1,4 @@
-/* eslint-disable */
-
 import { setGlobalConfig } from '@storybook/testing-react';
-const { globalStorybookConfig } = require('./.storybook/preview');
+import * as globalStorybookConfig from '../../../../.storybook/preview';
 
 setGlobalConfig(globalStorybookConfig);

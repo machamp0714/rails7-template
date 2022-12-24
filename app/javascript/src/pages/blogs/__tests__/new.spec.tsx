@@ -4,7 +4,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, within } from '@testing-library/react';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 import '@testing-library/jest-dom';
@@ -33,11 +33,12 @@ describe('/pages/blogs/new', () => {
   const { FilledSuccess } = composeStories(stories);
 
   describe('リクエストが成功した時', () => {
-    it('アラートが表示されること', () => {
-      render(<FilledSuccess />);
+    it('アラートが表示されること', async () => {
+      const { container } = render(<FilledSuccess />);
+      const canvas = within(container);
       // @ts-expect-error
-      FilledSuccess.play();
-      expect(screen.findByText('Blog Created!')).toBeInTheDocument();
+      void FilledSuccess.play();
+      expect(await canvas.findByText('Blog Created!')).toBeInTheDocument();
     });
   });
 });
