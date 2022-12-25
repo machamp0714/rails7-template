@@ -29,7 +29,10 @@ rules:
     - error
     - checksVoidReturn:
         attributes: false
-
+  '@typescript-eslint/ban-ts-comment':
+    - error
+    - ts-expect-error: false
+    - ts-ignore: true
 settings:
   react:
     version: detect

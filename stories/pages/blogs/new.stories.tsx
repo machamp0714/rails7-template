@@ -1,7 +1,6 @@
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react';
-import { userEvent, screen, within } from '@storybook/testing-library';
+import { userEvent, within } from '@storybook/testing-library';
 import { rest } from 'msw';
-import { expect } from '@storybook/jest';
 
 import { BlogsNew } from '../../../app/javascript/src/pages/blogs/new';
 
@@ -50,28 +49,36 @@ export const Empty: Story = {
   },
 };
 
-export const EmptyError = {
+export const EmptyError: Story = {
   ...Empty,
-  play: () => userEvent.click(screen.getByText('Post')),
+  play: ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    userEvent.click(canvas.getByText('Post'));
+  },
 };
 
-export const Filled = {
+export const Filled: Story = {
   ...Empty,
-  play: () => {
-    userEvent.type(screen.getByLabelText('Title'), 'title');
-    userEvent.type(screen.getByLabelText('Description'), 'description');
+  play: ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    userEvent.type(canvas.getByLabelText('Title'), 'title');
+    userEvent.type(canvas.getByLabelText('Description'), 'description');
   },
 };
 
 export const FilledSuccess: Story = {
   ...Empty,
-  play: () => {
-    Filled.play();
-    EmptyError.play();
+  play: ({ canvasElement }) => {
+    // @ts-expect-error
+    void Filled.play({ canvasElement });
+    // @ts-expect-error
+    void EmptyError.play({ canvasElement });
   },
 };
 
-export const FilledError = {
+export const FilledError: Story = {
   ...Empty,
   parameters: {
     msw: {
@@ -88,14 +95,10 @@ export const FilledError = {
       ],
     },
   },
-  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
-    const canvas = within(canvasElement);
-
-    Filled.play();
-    EmptyError.play();
-
-    expect(
-      await canvas.findByText('title has already been taken')
-    ).toBeInTheDocument();
+  play: ({ canvasElement }) => {
+    // @ts-expect-error
+    void Filled.play({ canvasElement });
+    // @ts-expect-error
+    void EmptyError.play({ canvasElement });
   },
 };
