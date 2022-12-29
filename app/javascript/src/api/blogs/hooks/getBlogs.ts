@@ -10,6 +10,7 @@ export const getBlogs = (): Promise<Blog[]> => {
 export const useGetBlogs = () => {
   return useQuery({
     queryKey: ['blogs'],
-    queryFn: getBlogs
+    queryFn: getBlogs,
+    suspense: true
   });
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import { useRoutes } from 'react-router-dom';
 
 import { Home } from '../pages/home';
-import { BlogsNewContainer } from '../containers/BlogsNewContainer';
+import { BlogsNew } from '../pages/blogs/new';
 
 export const AppRoutes = () => {
   const routes = useRoutes([
@@ -12,7 +12,7 @@ export const AppRoutes = () => {
     },
     {
       path: '/blogs/new',
-      element: <BlogsNewContainer />,
+      element: <BlogsNew />,
     },
   ]);
 

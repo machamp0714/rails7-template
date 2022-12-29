@@ -1,23 +1,20 @@
 import React from 'react';
 import * as z from 'zod';
 
-import { useCreateBlog, BlogCreateParams, Blog } from '../../api/blogs';
+import { useCreateBlog, BlogCreateParams, useGetBlogs } from '../../api/blogs';
 import { Form } from '../../components/Form';
 import { Button } from '../../components/Button';
 import { Alert } from '../../components/Alert';
 import { ErrorMessage } from '../../components/ErrorMessage';
 
-interface Props {
-  blogs: Blog[];
-}
-
-export const BlogsNew: React.FC<Props> = ({ blogs }: Props) => {
+export const BlogsNew: React.FC = () => {
   const schema = z.object({
     title: z.string().min(1, { message: 'タイトルは必須です' }),
     description: z.string(),
   });
 
   const mutation = useCreateBlog();
+  const { data, isSuccess } = useGetBlogs();
 
   const onSubmit = (data: BlogCreateParams) => {
     mutation.mutate(data);
@@ -71,9 +68,10 @@ export const BlogsNew: React.FC<Props> = ({ blogs }: Props) => {
         )}
       </Form>
       <ul className="list-disc">
-        {blogs.map((blog) => {
-          return <li key={blog.id}>{blog.title}</li>;
-        })}
+        {isSuccess &&
+          data.map((blog) => {
+            return <li key={blog.id}>{blog.title}</li>;
+          })}
       </ul>
     </div>
   );

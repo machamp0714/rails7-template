@@ -1,4 +1,5 @@
 import React from 'react';
+import { ErrorBoundary } from './components/ErrorBoundary';
 
 import { AppProviders } from './providers';
 import { AppRoutes } from './routes';
@@ -6,7 +7,11 @@ import { AppRoutes } from './routes';
 const App = () => {
   return (
     <AppProviders>
-      <AppRoutes />
+      <ErrorBoundary>
+        <React.Suspense fallback={''}>
+          <AppRoutes />
+        </React.Suspense>
+      </ErrorBoundary>
     </AppProviders>
   );
 };
