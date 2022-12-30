@@ -9,7 +9,7 @@ import { ErrorMessage } from '../../components/ErrorMessage';
 
 export const BlogsNew: React.FC = () => {
   const schema = z.object({
-    title: z.string().min(1, { message: 'タイトルは必須です' }),
+    title: z.string().min(1, { message: 'タイトルは必須' }),
     description: z.string(),
   });
 
