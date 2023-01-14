@@ -1,20 +1,8 @@
-import React, { useRef, forwardRef } from 'react';
+import React from 'react';
+import { Memo } from '../../components/Memo';
 
-const MyInput = forwardRef<HTMLInputElement>(function MyInput(props, ref) {
-  return <input {...props} ref={ref} />;
-});
+const array = ['a', 'b', 'c'];
 
 export const Home = () => {
-  const inputRef = useRef<HTMLInputElement>(null!);
-
-  function handleClick() {
-    inputRef.current.focus();
-  }
-
-  return (
-    <>
-      <MyInput ref={inputRef} />
-      <button onClick={handleClick}>Focus the input</button>
-    </>
-  );
+  return <Memo array={array} />;
 };
