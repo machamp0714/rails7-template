@@ -6,6 +6,7 @@ import { Form } from '../../components/Form';
 import { Button } from '../../components/Button';
 import { Alert } from '../../components/Alert';
 import { ErrorMessage } from '../../components/ErrorMessage';
+import { Link } from 'react-router-dom';
 
 export const BlogsNew: React.FC = () => {
   const schema = z.object({
@@ -22,6 +23,7 @@ export const BlogsNew: React.FC = () => {
 
   return (
     <div className="w-full max-w-xs">
+      <Link to="/">Home</Link>
       {mutation.isSuccess && <Alert type="success" message="Blog Created!" />}
       {mutation.isError && <ErrorMessage error={mutation.error} />}
       <h1>ブログ作成</h1>

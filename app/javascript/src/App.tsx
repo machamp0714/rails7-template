@@ -1,5 +1,6 @@
 import React from 'react';
 import { ErrorBoundary } from './components/ErrorBoundary';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import { AppProviders } from './providers';
 import { AppRoutes } from './routes';
@@ -12,6 +13,7 @@ const App = () => {
           <AppRoutes />
         </React.Suspense>
       </ErrorBoundary>
+      <ReactQueryDevtools initialIsOpen={false} />
     </AppProviders>
   );
 };

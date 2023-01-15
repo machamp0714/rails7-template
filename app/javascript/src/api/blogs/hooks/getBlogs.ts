@@ -5,12 +5,12 @@ import { Blog } from '../types';
 
 export const getBlogs = (): Promise<Blog[]> => {
   return axios.get('/blogs');
-}
+};
 
 export const useGetBlogs = () => {
   return useQuery({
     queryKey: ['blogs'],
     queryFn: getBlogs,
-    suspense: true
+    staleTime: Infinity,
   });
-}
+};
